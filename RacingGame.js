@@ -35,13 +35,12 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       const body = document.querySelector('body');
 
       body.appendChild(racer.getImg());
-      body.appendChild(ghost.getImg());
 
       mousePos = racer.pos.clone();
 
       window.addEventListener('mousemove', onMouseMove, false);
 
-      setInterval(onTimerFire, deltaTime);
+      timerId = setInterval(onTimerFire, deltaTime);
    };
 
 
@@ -57,11 +56,6 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
          var f = 'onTimerFire()';
          UTILS.checkArgs(f, arguments, []);
 
-         if (ghostLap !== null && typeof ghostLap[lapTime] != 'undefined')
-         {
-            ghost.setPos(ghostLap[lapTime]);
-         }
-
          // NOTE: Must convert mousePos to raceTrack coordinates to match racer.pos before
          //       calculating vectorRacerMouse.  Must also convert back since otherwise if mouse
          //       stops moving, mousePos will be in incorrect coordinates.
@@ -69,41 +63,23 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
          var vectorRacerMouse = mousePos.subtract(racer.pos);
          raceTrack.convertCoordinatesTrackToWindow(mousePos);
 
-         var lapStatus = racer.accelerate(vectorRacerMouse.getAngle(), deltaTime);
+         var missionStatus = racer.accelerate(vectorRacerMouse.getAngle(), deltaTime);
 
-         switch (lapStatus)
+         switch (missionStatus)
          {
           case -1:
-            // Start/finish line has been crossed in backward direction.
-            lapTime = null;
+            // Player has crashed.
+            console.info('Clearing interval ', timerId);
+            window.clearInterval(timerId);
             break;
           case  0:
-            // Start/finish line has not been crossed.
-            if (lapTime !== null)
-            {
-               lapTime += deltaTime;
-               racerLap[lapTime] = racer.pos;
-            }
-            break;
-          case  1:
-            // Start/finish line has been crossed in forward direction.
-            if (lapTime !== null)
-            {
-//               sidePanel.addCompletedLapTime(lapTime);
-
-               if (lapTime < bestTimeThisSession)
-               {
-                  ghostLap = racerLap;
-               }
-            }
-            lapTime = 0;
-            racerLap = [];
+            // No progress, but all fine.
             break;
           default:
-            throw new Exception(f, 'Unknown lapStatus.', 'Expected -1, 0, or 1.');
+            throw new Exception(f, 'Unknown missionStatus: ', missionStatus);
          }
 
-//         sidePanel.setCurrentLapTime(lapTime);
+//         sidePanel.setCurrentLapTime(missionTime);
       }
       catch (e)
       {
@@ -132,13 +108,11 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
 
    // Private variables. ////////////////////////////////////////////////////////////////////////
 
-   var raceTrack = new RaceTrack(canvasIdAttr, sidePanelIdAttr);
-   var racer     = new Racer(raceTrack, IMG({src: 'images/racers/racer5.jpg'}), 2);
-   var ghost     = new Racer(raceTrack, IMG({src: 'images/racers/ghost5.jpg'}), 2);
-   var racerLap  = null;
-   var ghostLap  = null;
-   var mousePos  = null;
-   var lapTime   = null;
+   var raceTrack   = new RaceTrack(canvasIdAttr, sidePanelIdAttr);
+   var racer       = new Racer(raceTrack, IMG({src: 'images/racers/racer5.jpg'}), 2);
+   var mousePos    = null;
+   var missionTime = null;
+   var timerId     = null;
 
    const sidePanel = document.getElementById(sidePanelIdAttr);
    const deltaTime = 80;

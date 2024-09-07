@@ -80,13 +80,16 @@ function RaceTrack(canvasIdAttr, sidePanelIdAttr)
    {
       //Optimised for speed. var f = 'RaceTrack.updateRacerPosition()';
       //Optimised for speed. UTILS.checkArgs(f, arguments, ['VectorRec2d', 'VectorRec2d', 'VectorRec2d']);
-      if (crashHasOccurred(pos)) {
-         // Update lapStatus due to crash.
+      if (crashHasOccurred(pos))
+      {
+         missionStatus = -1; // Crashed.
+      }
+      else
+      {
+         missionStatus = checkForMissionProgress(posOld, pos, missionStatus);
       }
 
-      var lapStatus = dealWithLapTimeIssues(posOld, pos);
-
-      return lapStatus;
+      return missionStatus;
    };
 
    // Private functions. ////////////////////////////////////////////////////////////////////////
@@ -98,8 +101,18 @@ function RaceTrack(canvasIdAttr, sidePanelIdAttr)
     */
    function crashHasOccurred(pos)
    {
-      // TODO: Check whether pos is inside a track stadium section.
-      //       If so, the racer has crashe and his/her race is over.
+      let x = pos.getX();
+      let y = pos.getY();
+
+      if (x < 0 || x > 1000 || y < 0 || y > 1000)
+      {
+         console.info('Crash');
+         return true;
+      }
+      else
+      {
+         return false;
+      }
    }
 
    // Timing functions. -----------------------------------------------------------------------//
@@ -107,26 +120,14 @@ function RaceTrack(canvasIdAttr, sidePanelIdAttr)
    /*
     *
     */
-   function dealWithLapTimeIssues(posOld, posNew)
+   function checkForMissionProgress(posOld, posNew, missionStatus)
    {
       //Optimised for speed. var f = 'Racetrack.dealWithLapTimeIssues()';
       //Optimised for speed. UTILS.checkArgs(f, arguments, ['VectorRec2d', 'VectorRec2d']);
 
-      // Driver has crossed start/finish line in correct direction...
-      if (false)
-      {
-         // Start lap timer.
-         return 1;
-      }
+      // TODO: If hit objective, increment missionStatus.
 
-      // Driver has crossed start/finish line in incorrect direction...
-      if (false)
-      {
-         // Nullify lap time.
-         return -1;
-      }
-
-      return 0;
+      return 0; // No progress, but all fine.
    }
 
    // General purpose functions. --------------------------------------------------------------//
@@ -171,8 +172,9 @@ function RaceTrack(canvasIdAttr, sidePanelIdAttr)
 
    // Offsets in pixels.
    // These must be set after the track table has been added to the DOM using this.setOffsets().
-   trackOffsetTop  = null;
-   trackOffsetLeft = null;
+   var trackOffsetTop  = null;
+   var trackOffsetLeft = null;
+   var missionStatus   = 0;
 
    // Initialisation code. //////////////////////////////////////////////////////////////////////
 

@@ -104,11 +104,11 @@ function Racer(raceTrack, image, imageRadius)
 
       // Update position taking into account collisions with barriers.
       // (Note: self.pos and self.vel are updated as they are passed by reference.)
-      var lapStatus = raceTrack.updateRacerPosition(posOld, self.pos, self.vel);
+      var missionStatus = raceTrack.updateRacerPosition(posOld, self.pos, self.vel);
 
       updateStyleVars();
 
-      return lapStatus;
+      return missionStatus;
    }
 
    // Private functions. ////////////////////////////////////////////////////////////////////////
