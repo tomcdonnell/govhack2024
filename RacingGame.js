@@ -34,6 +34,8 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
 
       const body = document.querySelector('body');
 
+      drawObjectivesForLevel();
+
       body.appendChild(racer.getImg());
 
       mousePos = racer.pos.clone();
@@ -67,7 +69,7 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
 
          racer.accelerate(vectorRacerMouse.getAngle(), deltaTime);
 
-         missionStatus = getNewMissionStatus(racer.pos);
+         updateMissionStatus(racer.pos);
 
          // Update position taking into account collisions with barriers.
          if (raceTrack.racerHasCrashed(racer.pos))
@@ -106,34 +108,114 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       }
    }
 
+   /*
+    *
+    */
+   function drawObjectivesForLevel()
+   {
+      var levelData       = levelDataByLevelNo[levelNo];
+      var levelObjectives = levelData.objectives;
+
+      const canvas = document.getElementById(canvasIdAttr);
+      const ctx    = canvas.getContext('2d');
+
+      ctx.strokeStyle = 'rgb(0,0,0)';
+      ctx.fillStyle   = 'rgb(255,0,0)';
+      ctx.font        = 'bold 16px Arial';
+
+      for (var i = 0; i < levelObjectives.length; ++i)
+      {
+         var o = levelObjectives[i];
+
+         // Draw white circle.
+         ctx.beginPath();
+         ctx.arc(o.x, o.y, o.r, 0, 2 * Math.PI);
+         ctx.stroke();
+         ctx.fillText((i + 1) + ': ' + o.name, o.x - 15, o.y + 5);
+      }
+   }
+
    // Mission functions. ----------------------------------------------------------------------//
 
    /*
     *
     */
-   function getNewMissionStatus(pos)
+   function updateMissionStatus(pos)
    {
-      //Optimised for speed. var f = 'Racetrack.dealWithLapTimeIssues()';
-      //Optimised for speed. UTILS.checkArgs(f, arguments, ['VectorRec2d', 'VectorRec2d']);
+      var levelData           = levelDataByLevelNo[levelNo];
+      var levelObjectives     = levelData.objectives;
+      var posX                = pos.getX();
+      var posY                = pos.getY();
+      var unmetObjectiveFound = false;
 
-      // TODO: If hit objective, increment missionStatus.
+      // If hit objective, increment missionStatus.
+      for (var i = 0; i < levelObjectives.length; ++i)
+      {
+         var o = levelObjectives[i];
 
-      return missionStatus; // No progress, but all fine.
+         if (!o.reached)
+         {
+            unmetObjectiveFound = true;
+
+            // If pos is inside objective...
+            if
+            (
+               posX > (o.x - o.r) && posX < (o.x + o.r) &&
+               posY > (o.y - o.r) && posY < (o.y + o.r)
+            )
+            {
+               o.reached = true;
+               missionStatus++;
+               continue;
+            }
+         }
+      }
+
+      if (!unmetObjectiveFound)
+      {
+         missionStatus = 1;
+         window.clearInterval(timerId);
+      }
    }
-
 
    // Private variables. ////////////////////////////////////////////////////////////////////////
 
-   var raceTrack     = new RaceTrack(canvasIdAttr, sidePanelIdAttr);
-   var racer         = new Racer(raceTrack, IMG({src: 'images/racers/plane10.png'}), 2);
-   var mousePos      = null;
-   var missionTime   = null;
-   var timerId       = null;
-   var missionStatus = 0;
+   var raceTrack          = new RaceTrack(canvasIdAttr, sidePanelIdAttr);
+   var racer              = new Racer(raceTrack, IMG({src: 'images/racers/plane10.png'}), 2);
+   var mousePos           = null;
+   var missionTime        = null;
+   var timerId            = null;
+   var missionStatus      = 0;
+   var levelNo            = 0;
+   var levelDataByLevelNo =
+   [
+      // Level 0.
+      {
+         name: 'Level 1: ',
+         objectives:
+         [
+            {
+               name: 'Sturt Creek',
+               reached: false,
+               x: 150,
+               y: 550,
+               r: 20,
+            },
+            {
+               name: 'Home',
+               reached: false,
+               x: 880,
+               y: 980,
+               r: 20,
+            }
+         ]
+      },
 
-   const sidePanelElem     = document.getElementById(sidePanelIdAttr);
-   const missionStatusElem = document.getElementById('mission-status');
-   const deltaTime         = 80;
+   ];
+
+   const sidePanelElem      = document.getElementById(sidePanelIdAttr);
+   const missionStatusElem  = document.getElementById('mission-status');
+   const deltaTime          = 80;
 }
 
 /*******************************************END*OF*FILE********************************************/

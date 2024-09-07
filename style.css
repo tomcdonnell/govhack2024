@@ -30,6 +30,7 @@ body
 
 #canvas {
    border: 1px solid black;
+   background-image: url('images/tracks/northern_territory_1000x1000.png');
    float: right;
 }
 

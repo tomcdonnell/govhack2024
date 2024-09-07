@@ -89,19 +89,12 @@ function RaceTrack(canvasIdAttr, sidePanelIdAttr)
    function _initCanvas(canvasIdAttr)
    {
       const canvas       = document.getElementById(canvasIdAttr);
-      const context      = canvas.getContext('2d');
-      const image        = new Image();
       const canvasWidth  = Number(canvas.getAttribute('width' ));
       const canvasHeight = Number(canvas.getAttribute('height'));
 
       if (canvasWidth !== 1000 || canvasHeight !== 1000)
       {
          throw new Exception('Unexpected canvas width and/or height.');
-      }
-
-      image.src    = 'images/tracks/northern_territory_1000x1000.png';
-      image.onload = function () {
-         context.drawImage(image, 0, 0, canvasWidth, canvasHeight);
       }
 
       const canvasBoundingRect = canvas.getBoundingClientRect();
