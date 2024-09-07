@@ -34,7 +34,7 @@
  <body>
   <div id='side-panel'>
    <h1>NT Flight School</h1>
-   <p>An game made for GovHack 2024.</p>
+   <p>A game made for GovHack 2024.</p>
    <h2>
     Mission <span id='mission-number'>1</span>:<br/>
     <span id='mission-name'></span>
