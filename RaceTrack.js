@@ -69,66 +69,18 @@ function RaceTrack(canvasIdAttr, sidePanelIdAttr)
    };
 
    /*
-    * Update the position of the racer (passed by reference) taking into account collisions
-    * with barriers.  Also deal with lap time issues (start timer when cross start/finish line,
-    * nullify lap time if cross start/finish line in wrong direction).
-    *
-    * @param racerPosNew {VectorRec2d}
-    *    The new position of the racer not taking into account collisions with barriers.
-    */
-   this.updateRacerPosition = function (posOld, pos, vel, missionStatus)
-   {
-      //Optimised for speed. var f = 'RaceTrack.updateRacerPosition()';
-      //Optimised for speed. UTILS.checkArgs(f, arguments, ['VectorRec2d', 'VectorRec2d', 'VectorRec2d']);
-      if (crashHasOccurred(pos))
-      {
-         missionStatus = -1; // Crashed.
-      }
-      else
-      {
-         missionStatus = checkForMissionProgress(posOld, pos, missionStatus);
-      }
-
-      return missionStatus;
-   };
-
-   // Private functions. ////////////////////////////////////////////////////////////////////////
-
-   // Collision functions. --------------------------------------------------------------------//
-
-   /*
     *
     */
-   function crashHasOccurred(pos)
+   this.racerHasCrashed = function (pos)
    {
       let x = pos.getX();
       let y = pos.getY();
 
-      if (x < 0 || x > 1000 || y < 0 || y > 1000)
-      {
-         console.info('Crash');
-         return true;
-      }
-      else
-      {
-         return false;
-      }
+      return (x < 0 || x > 1000 || y < 0 || y > 1000);
    }
 
-   // Timing functions. -----------------------------------------------------------------------//
 
-   /*
-    *
-    */
-   function checkForMissionProgress(posOld, posNew, missionStatus)
-   {
-      //Optimised for speed. var f = 'Racetrack.dealWithLapTimeIssues()';
-      //Optimised for speed. UTILS.checkArgs(f, arguments, ['VectorRec2d', 'VectorRec2d']);
-
-      // TODO: If hit objective, increment missionStatus.
-
-      return 0; // No progress, but all fine.
-   }
+   // Private functions. ////////////////////////////////////////////////////////////////////////
 
    // General purpose functions. --------------------------------------------------------------//
 

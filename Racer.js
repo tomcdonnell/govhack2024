@@ -102,13 +102,7 @@ function Racer(raceTrack, image, imageRadius)
       posOld   = self.pos;
       self.pos = self.pos.add(self.vel.multiply(deltaTime / 10000));
 
-      // Update position taking into account collisions with barriers.
-      // (Note: self.pos and self.vel are updated as they are passed by reference.)
-      var missionStatus = raceTrack.updateRacerPosition(posOld, self.pos, self.vel);
-
       updateStyleVars();
-
-      return missionStatus;
    }
 
    // Private functions. ////////////////////////////////////////////////////////////////////////

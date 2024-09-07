@@ -65,20 +65,15 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
 
          var oldMissionStatus = missionStatus;
 
-         missionStatus = racer.accelerate(vectorRacerMouse.getAngle(), deltaTime, missionStatus);
+         racer.accelerate(vectorRacerMouse.getAngle(), deltaTime);
 
-         switch (missionStatus)
+         missionStatus = getNewMissionStatus(racer.pos);
+
+         // Update position taking into account collisions with barriers.
+         if (raceTrack.racerHasCrashed(racer.pos))
          {
-          case -1:
-            // Player has crashed.
-            console.info('Clearing interval ', timerId);
+            missionStatus = -1;
             window.clearInterval(timerId);
-            break;
-          case  0:
-            // No progress, but all fine.
-            break;
-          default:
-            throw new Exception(f, 'Unknown missionStatus: ', missionStatus);
          }
 
          if (missionStatus != oldMissionStatus)
@@ -111,10 +106,26 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       }
    }
 
+   // Mission functions. ----------------------------------------------------------------------//
+
+   /*
+    *
+    */
+   function getNewMissionStatus(pos)
+   {
+      //Optimised for speed. var f = 'Racetrack.dealWithLapTimeIssues()';
+      //Optimised for speed. UTILS.checkArgs(f, arguments, ['VectorRec2d', 'VectorRec2d']);
+
+      // TODO: If hit objective, increment missionStatus.
+
+      return missionStatus; // No progress, but all fine.
+   }
+
+
    // Private variables. ////////////////////////////////////////////////////////////////////////
 
    var raceTrack     = new RaceTrack(canvasIdAttr, sidePanelIdAttr);
-   var racer         = new Racer(raceTrack, IMG({src: 'images/racers/racer5.jpg'}), 2);
+   var racer         = new Racer(raceTrack, IMG({src: 'images/racers/plane10.png'}), 2);
    var mousePos      = null;
    var missionTime   = null;
    var timerId       = null;
