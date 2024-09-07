@@ -73,7 +73,7 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
          {
             window.clearInterval(timerId);
             var p = document.getElementById('mission-status');
-            p.innerHTML = 'Failed';
+            p.innerHTML = 'Failed (presumed crashed)';
          }
 
          updateMissionStatus(racer.pos);

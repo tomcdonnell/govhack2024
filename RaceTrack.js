@@ -76,7 +76,7 @@ function RaceTrack(canvasIdAttr, sidePanelIdAttr)
       let x = pos.getX();
       let y = pos.getY();
 
-      return (x < 0 || x > 1000 || y < 0 || y > 1000);
+      return (x < xRangeMin || x > xRangeMax || y < yRangeMin || y > yRangeMax);
    }
 
 
@@ -109,6 +109,12 @@ function RaceTrack(canvasIdAttr, sidePanelIdAttr)
    const canvasHeightPx   = 1000;
    const SCALING_FACTOR_X = 1; //canvasWidthPx  / canvasWidthPx;
    const SCALING_FACTOR_Y = 1; //canvasHeightPx / canvasHeightPx;
+
+   // Allow the plane's position to exceed the canvas dimensions slightly.
+   const xRangeMin = -canvasWidthPx  * 0.1;
+   const yRangeMin = -canvasHeightPx * 0.1;
+   const xRangeMax =  canvasWidthPx  * 1.1;
+   const yRangeMax =  canvasHeightPx * 1.1;
 
    // Private variables. ////////////////////////////////////////////////////////////////////////
 
