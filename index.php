@@ -33,8 +33,8 @@
  </head>
  <body>
   <div id='side-panel'>
-   <h1>GovHack 2024</h1>
-   <p>This is my entry to GovHack 2024.</p>
+   <h1>NT Flight School</h1>
+   <p>An game made for GovHack 2024.</p>
    <h2>
     Mission <span id='mission-number'>1</span>:<br/>
     <span id='mission-name'></span>
