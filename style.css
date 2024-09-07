@@ -8,7 +8,7 @@
 *
 * Purpose: Sylesheet.
 *
-* Author: Tom McDonnell 11/2024.
+* Author: Tom McDonnell 2024.
 *
 \**************************************************************************************************/
 
@@ -32,6 +32,34 @@ body
    border: 1px solid black;
    background-image: url('images/tracks/northern_territory_1000x1000.png');
    float: right;
+}
+
+#mission-intro-slide {
+   background-color: white;
+   border: 10px solid black;
+   height: 200px;
+   left: 100px;
+   position: absolute;
+   top: 700px;
+   width: 1000px;
+}
+
+#mission-intro-slide > img {
+   float: left;
+}
+
+#mission-intro-slide > p {
+   float: left;
+   padding-left: 20px;
+   font-size: 20px;
+}
+
+#mission-intro-slide > button {
+   float: right;
+   font-size: 20px;
+   font-weight: bold;
+   padding: 10px;
+   margin-top: 153px;
 }
 
 /*******************************************END*OF*FILE********************************************/

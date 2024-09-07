@@ -45,6 +45,11 @@
    <p id='mission-status'></p>
   </div>
   <canvas id='canvas' width='1000' height='1000'></canvas>
+  <div id='mission-intro-slide' style='display:none'>
+   <img id='mission-intro-slide-img' width='200' height='200'/>
+   <p id='mission-intro-slide-text'>this is what the mayor says.</p>
+   <button id='mission-intro-slide-button'>Next</button>
+  </div>
  </body>
 </html>
 <?php

@@ -34,15 +34,13 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
 
       const body = document.querySelector('body');
 
-      prepareMission();
-
       body.appendChild(racer.getImg());
 
       mousePos = racer.pos.clone();
 
       window.addEventListener('mousemove', onMouseMove, false);
 
-      startMission();
+      showMissionIntroSlide();
    };
 
 
@@ -107,8 +105,66 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
    /*
     *
     */
-   function prepareMission()
+   function showMissionIntroSlide()
    {
+      var missionData = missionDataByMissionNo[missionNo];
+      var slides      = missionData.introSlides;
+      var slide       = slides[missionSlideNo];
+
+      missionIntroSlideImgElem.setAttribute('src', slide.imageUrl);
+      missionIntroSlideTextElem.innerHTML = slide.text;
+      missionIntroSlideElem.style.display = 'block';
+
+      if (missionSlideNo < slides.length - 1)
+      {
+         // This is not the last intro slide, so set button to next slide.
+         missionIntroSlideButtonElem.innerHTML = 'Next';
+         missionIntroSlideButtonElem.addEventListener('click', showNextSlide);
+      }
+      else
+      {
+         // This is the last intro slide.
+         missionIntroSlideButtonElem.removeEventListener('click', showNextSlide);
+
+         if (missionData.objectives.length > 0)
+         {
+            missionIntroSlideButtonElem.innerHTML = 'Start Mission';
+            missionIntroSlideButtonElem.addEventListener('click', startMission);
+         }
+         else
+         {
+            // This is the end-game slideshow.  Change the button to a refresh
+            missionIntroSlideButtonElem.innerHTML = 'End';
+            missionIntroSlideButtonElem.addEventListener('click', refreshPage);
+         }
+      }
+   }
+
+   /*
+    *
+    */
+   function showNextSlide(ev)
+   {
+       missionSlideNo++;
+       showMissionIntroSlide();
+   }
+
+   /*
+    *
+    */
+   function refreshPage(ev)
+   {
+      document.location.reload(true);
+   }
+
+   /*
+    *
+    */
+   function startMission()
+   {
+      // Hide mission intro slide.
+      missionIntroSlideElem.style.display = 'none';
+
       // Clear canvas.
       const canvas       = document.getElementById(canvasIdAttr);
       const canvasWidth  = Number(canvas.getAttribute('width' ));
@@ -125,6 +181,7 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       missionNumberElem.innerHTML     = missionNo + 1;
       missionNameElem.innerHTML       = missionData.name;
       missionStatusElem.innerHTML     = 'Not yet started';
+      missionSlideNo                  = 0;
 
       // Draw mission objective circles on map.
       ctx.strokeStyle = 'rgb(0,0,0)';
@@ -146,13 +203,8 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
          p.setAttribute('id', 'objective-' + i);
          missionObjectivesElem.append(p);
       }
-   }
 
-   /*
-    *
-    */
-   function startMission()
-   {
+      // Start the mission.
       timerId = setInterval(onTimerFire, deltaTime);
       missionStatusElem.innerHTML = 'Ongoing';
    }
@@ -199,21 +251,12 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
          var p = document.getElementById('mission-status');
          p.innerHTML = 'Success!';
 
-         if (missionNo === missionDataByMissionNo.length -1)
-         {
-            // All missions are completed.
-            console.info('All missions completed');
-         }
-         else
+         if (missionNo < missionDataByMissionNo.length -1)
          {
             // Prepare for the next mission.
-
-            // Increment mission number.
-            ++missionNo;
-
-            // Prepare and start new mission.
-            prepareMission();
-            startMission();
+            missionNo     += 1;
+            missionSlideNo = 0;
+            showMissionIntroSlide();
          }
       }
    }
@@ -224,10 +267,22 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
    var timerId                = null;
    var missionTime            = null;
    var missionNo              = 0;
+   var missionSlideNo         = 0;
    var missionDataByMissionNo =
    [
       {
          name: 'Test flight',
+         introSlides:
+         [
+            {
+               imageUrl: 'images/people/face_mayor.png',
+               text: 'This is what the mayor says.'
+            },
+            {
+               imageUrl: 'images/people/face_general.png',
+               text: 'This is what the general says.'
+            },
+         ],
          startX: 860,
          startY: 980,
          objectives:
@@ -250,6 +305,13 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       },
       {
          name: 'Pickup gear',
+         introSlides:
+         [
+            {
+               imageUrl: 'images/people/face_mayor.png',
+               text: 'This is what the mayor says.'
+            },
+         ],
          startX: 860,
          startY: 980,
          objectives:
@@ -277,7 +339,19 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
             }
          ]
       },
-
+      {
+         name: 'Rejoice!',
+         introSlides:
+         [
+            {
+               imageUrl: 'images/people/face_mayor.png',
+               text: 'This is the end.  All missions have been completed.'
+            },
+         ],
+         startX: 860,
+         startY: 980,
+         objectives: [] // The final mission has no objectives.  It is just a slideshow.
+      },
    ];
 
    var raceTrack = new RaceTrack(canvasIdAttr, sidePanelIdAttr);
@@ -290,12 +364,16 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       missionDataByMissionNo[0].startY
    );
 
-   const sidePanelElem         = document.getElementById(sidePanelIdAttr);
-   const missionNumberElem     = document.getElementById('mission-number');
-   const missionNameElem       = document.getElementById('mission-name');
-   const missionObjectivesElem = document.getElementById('mission-objectives');
-   const missionStatusElem     = document.getElementById('mission-status');
-   const deltaTime             = 80;
+   const sidePanelElem               = document.getElementById(sidePanelIdAttr);
+   const missionNumberElem           = document.getElementById('mission-number');
+   const missionNameElem             = document.getElementById('mission-name');
+   const missionIntroSlideElem       = document.getElementById('mission-intro-slide');
+   const missionIntroSlideImgElem    = document.getElementById('mission-intro-slide-img');
+   const missionIntroSlideTextElem   = document.getElementById('mission-intro-slide-text');
+   const missionIntroSlideButtonElem = document.getElementById('mission-intro-slide-button');
+   const missionObjectivesElem       = document.getElementById('mission-objectives');
+   const missionStatusElem           = document.getElementById('mission-status');
+   const deltaTime                   = 80;
 }
 
 /*******************************************END*OF*FILE********************************************/
