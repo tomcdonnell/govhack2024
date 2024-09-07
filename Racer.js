@@ -19,10 +19,10 @@
 /*
  *
  */
-function Racer(raceTrack, image, imageRadius)
+function Racer(raceTrack, image, imageRadius, startX, startY)
 {
    var f = 'Racer()';
-   UTILS.checkArgs(f, arguments, ['RaceTrack', 'HTMLImageElement', 'number']);
+   UTILS.checkArgs(f, arguments, ['RaceTrack', 'HTMLImageElement', 'number', 'number', 'number']);
    UTILS.assert(f, 0, imageRadius > 0);
 
    // Public functions. /////////////////////////////////////////////////////////////////////////
@@ -138,10 +138,10 @@ function Racer(raceTrack, image, imageRadius)
    (
       this,
       [
-         new VectorRec2d(500, 500), // Position.
-         new VectorRec2d(0, 0), // Velocity.
-         2,                 // Mass.
-         0                      // Radius.
+         new VectorRec2d(startX, startY), // Position.
+         new VectorRec2d(0, 0),           // Velocity.
+         2,                               // Mass.
+         0                                // Radius.
       ]
    );
 

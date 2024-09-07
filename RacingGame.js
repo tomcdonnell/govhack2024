@@ -43,6 +43,7 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       window.addEventListener('mousemove', onMouseMove, false);
 
       timerId = setInterval(onTimerFire, deltaTime);
+      missionStatusElem.innerHTML = 'Ongoing';
    };
 
 
@@ -209,22 +210,23 @@ console.info('posX, posY: ', posX, posY);
 
             // Start new mission.
             timerId = setInterval(onTimerFire, deltaTime);
+            missionStatusElem.innerHTML = 'Ongoing';
          }
       }
    }
 
    // Private variables. ////////////////////////////////////////////////////////////////////////
 
-   var raceTrack              = new RaceTrack(canvasIdAttr, sidePanelIdAttr);
-   var racer                  = new Racer(raceTrack, IMG({src: 'images/racers/plane10.png'}), 2);
    var mousePos               = null;
-   var missionTime            = null;
    var timerId                = null;
+   var missionTime            = null;
    var missionNo              = 0;
    var missionDataByMissionNo =
    [
       {
          name: 'Test flight',
+         startX: 860,
+         startY: 980,
          objectives:
          [
             {
@@ -235,9 +237,9 @@ console.info('posX, posY: ', posX, posY);
                r: 20,
             },
             {
-               name: 'Home',
+               name: 'Birdsville',
                reached: false,
-               x: 880,
+               x: 860,
                y: 980,
                r: 20,
             }
@@ -245,6 +247,8 @@ console.info('posX, posY: ', posX, posY);
       },
       {
          name: 'Pickup gear',
+         startX: 860,
+         startY: 980,
          objectives:
          [
             {
@@ -272,6 +276,16 @@ console.info('posX, posY: ', posX, posY);
       },
 
    ];
+
+   var raceTrack = new RaceTrack(canvasIdAttr, sidePanelIdAttr);
+   var racer     = new Racer
+   (
+      raceTrack,
+      IMG({src: 'images/racers/plane10.png'}),
+      2,
+      missionDataByMissionNo[0].startX,
+      missionDataByMissionNo[0].startY
+   );
 
    const sidePanelElem         = document.getElementById(sidePanelIdAttr);
    const missionNumberElem     = document.getElementById('mission-number');
