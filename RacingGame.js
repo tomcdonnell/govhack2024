@@ -69,8 +69,6 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
 
          racer.accelerate(vectorRacerMouse.getAngle(), deltaTime);
 
-         updateMissionStatus(racer.pos);
-
          // Update position taking into account collisions with barriers.
          if (raceTrack.racerHasCrashed(racer.pos))
          {
@@ -78,10 +76,7 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
             window.clearInterval(timerId);
          }
 
-         if (missionStatus != oldMissionStatus)
-         {
-            missionStatusElem.innerHTML = missionStatus;
-         }
+         updateMissionStatus(racer.pos);
       }
       catch (e)
       {
@@ -132,6 +127,11 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
          ctx.arc(o.x, o.y, o.r, 0, 2 * Math.PI);
          ctx.stroke();
          ctx.fillText((i + 1) + ': ' + o.name, o.x - 15, o.y + 5);
+
+         var p = document.createElement('p');
+         p.innerHTML = (i + 1) + ': ' + o.name;
+         p.setAttribute('id', 'objective-' + i);
+         missionObjectivesElem.append(p);
       }
    }
 
@@ -165,6 +165,8 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
             )
             {
                o.reached = true;
+               var p = document.getElementById('objective-' + i);
+               p.innerHTML = (i + 1) + ': Completed';
                missionStatus++;
                continue;
             }
@@ -213,9 +215,9 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
 
    ];
 
-   const sidePanelElem      = document.getElementById(sidePanelIdAttr);
-   const missionStatusElem  = document.getElementById('mission-status');
-   const deltaTime          = 80;
+   const sidePanelElem         = document.getElementById(sidePanelIdAttr);
+   const missionObjectivesElem = document.getElementById('mission-objectives');
+   const deltaTime             = 80;
 }
 
 /*******************************************END*OF*FILE********************************************/
