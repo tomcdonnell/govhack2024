@@ -34,7 +34,7 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
 
       const body = document.querySelector('body');
 
-      drawObjectivesForMission();
+      prepareMission();
 
       body.appendChild(racer.getImg());
 
@@ -42,8 +42,7 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
 
       window.addEventListener('mousemove', onMouseMove, false);
 
-      timerId = setInterval(onTimerFire, deltaTime);
-      missionStatusElem.innerHTML = 'Ongoing';
+      startMission();
    };
 
 
@@ -108,37 +107,54 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
    /*
     *
     */
-   function drawObjectivesForMission()
+   function prepareMission()
    {
+      // Clear canvas.
+      const canvas       = document.getElementById(canvasIdAttr);
+      const canvasWidth  = Number(canvas.getAttribute('width' ));
+      const canvasHeight = Number(canvas.getAttribute('height'));
+      const ctx          = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+      // Get mission data.
       var missionData = missionDataByMissionNo[missionNo];
       var objectives  = missionData.objectives;
 
-      missionNumberElem.innerHTML = missionNo + 1;
-      missionNameElem.innerHTML   = missionData.name;
-      missionStatusElem.innerHTML = 'Not yet started';
+      // Prepare side panel.
+      missionObjectivesElem.innerHTML = '';
+      missionNumberElem.innerHTML     = missionNo + 1;
+      missionNameElem.innerHTML       = missionData.name;
+      missionStatusElem.innerHTML     = 'Not yet started';
 
-      const canvas = document.getElementById(canvasIdAttr);
-      const ctx    = canvas.getContext('2d');
-
+      // Draw mission objective circles on map.
       ctx.strokeStyle = 'rgb(0,0,0)';
       ctx.fillStyle   = 'rgb(255,0,0)';
       ctx.font        = 'bold 16px Arial';
-
       for (var i = 0; i < objectives.length; ++i)
       {
          var o = objectives[i];
 
-         // Draw white circle.
+         // Draw circle.
          ctx.beginPath();
          ctx.arc(o.x, o.y, o.r, 0, 2 * Math.PI);
          ctx.stroke();
          ctx.fillText((i + 1) + ': ' + o.name, o.x - 15, o.y + 5);
 
+         // Draw label.
          var p = document.createElement('p');
          p.innerHTML = (i + 1) + ': ' + o.name;
          p.setAttribute('id', 'objective-' + i);
          missionObjectivesElem.append(p);
       }
+   }
+
+   /*
+    *
+    */
+   function startMission()
+   {
+      timerId = setInterval(onTimerFire, deltaTime);
+      missionStatusElem.innerHTML = 'Ongoing';
    }
 
    /*
@@ -151,8 +167,6 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       var posX                = pos.getX();
       var posY                = pos.getY();
       var unmetObjectiveFound = false;
-
-console.info('posX, posY: ', posX, posY);
 
       for (var i = 0; i < objectives.length; ++i)
       {
@@ -187,30 +201,19 @@ console.info('posX, posY: ', posX, posY);
 
          if (missionNo === missionDataByMissionNo.length -1)
          {
-            // All missions completed.
+            // All missions are completed.
             console.info('All missions completed');
-            console.info('missionNo: ', missionNo);
-            console.info('missionDataByMissionNo: ', missionDataByMissionNo.length);
          }
          else
          {
-            const canvas       = document.getElementById(canvasIdAttr);
-            const canvasWidth  = Number(canvas.getAttribute('width' ));
-            const canvasHeight = Number(canvas.getAttribute('height'));
-            const ctx          = canvas.getContext('2d');
+            // Prepare for the next mission.
 
-            // Clear canvas.
-            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-
-            // Clear side panel for new mission.
-            missionObjectivesElem.innerHTML = '';
-
+            // Increment mission number.
             ++missionNo;
-            drawObjectivesForMission();
 
-            // Start new mission.
-            timerId = setInterval(onTimerFire, deltaTime);
-            missionStatusElem.innerHTML = 'Ongoing';
+            // Prepare and start new mission.
+            prepareMission();
+            startMission();
          }
       }
    }
