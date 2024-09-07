@@ -34,7 +34,7 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
 
       const body = document.querySelector('body');
 
-      drawObjectivesForLevel();
+      drawObjectivesForMission();
 
       body.appendChild(racer.getImg());
 
@@ -71,6 +71,8 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
          if (raceTrack.racerHasCrashed(racer.pos))
          {
             window.clearInterval(timerId);
+            var p = document.getElementById('mission-status');
+            p.innerHTML = 'Failed';
          }
 
          updateMissionStatus(racer.pos);
@@ -100,13 +102,19 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       }
    }
 
+   // Mission functions. ----------------------------------------------------------------------//
+
    /*
     *
     */
-   function drawObjectivesForLevel()
+   function drawObjectivesForMission()
    {
-      var levelData       = levelDataByLevelNo[levelNo];
-      var levelObjectives = levelData.objectives;
+      var missionData = missionDataByMissionNo[missionNo];
+      var objectives  = missionData.objectives;
+
+      missionNumberElem.innerHTML = missionNo + 1;
+      missionNameElem.innerHTML   = missionData.name;
+      missionStatusElem.innerHTML = 'Not yet started';
 
       const canvas = document.getElementById(canvasIdAttr);
       const ctx    = canvas.getContext('2d');
@@ -115,9 +123,9 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       ctx.fillStyle   = 'rgb(255,0,0)';
       ctx.font        = 'bold 16px Arial';
 
-      for (var i = 0; i < levelObjectives.length; ++i)
+      for (var i = 0; i < objectives.length; ++i)
       {
-         var o = levelObjectives[i];
+         var o = objectives[i];
 
          // Draw white circle.
          ctx.beginPath();
@@ -132,22 +140,22 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       }
    }
 
-   // Mission functions. ----------------------------------------------------------------------//
-
    /*
     *
     */
    function updateMissionStatus(pos)
    {
-      var levelData           = levelDataByLevelNo[levelNo];
-      var levelObjectives     = levelData.objectives;
+      var missionData         = missionDataByMissionNo[missionNo];
+      var objectives          = missionData.objectives;
       var posX                = pos.getX();
       var posY                = pos.getY();
       var unmetObjectiveFound = false;
 
-      for (var i = 0; i < levelObjectives.length; ++i)
+console.info('posX, posY: ', posX, posY);
+
+      for (var i = 0; i < objectives.length; ++i)
       {
-         var o = levelObjectives[i];
+         var o = objectives[i];
 
          if (!o.reached)
          {
@@ -163,30 +171,60 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
                o.reached = true;
                var p = document.getElementById('objective-' + i);
                p.innerHTML = (i + 1) + ': Completed';
-               continue;
             }
+
+            break;
          }
       }
 
       if (!unmetObjectiveFound)
       {
+         // The mission has been completed successfully.
          window.clearInterval(timerId);
+         var p = document.getElementById('mission-status');
+         p.innerHTML = 'Success!';
+
+         if (missionNo === missionDataByMissionNo.length -1)
+         {
+            // All missions completed.
+            console.info('All missions completed');
+            console.info('missionNo: ', missionNo);
+            console.info('missionDataByMissionNo: ', missionDataByMissionNo.length);
+         }
+         else
+         {
+            const canvas       = document.getElementById(canvasIdAttr);
+            const canvasWidth  = Number(canvas.getAttribute('width' ));
+            const canvasHeight = Number(canvas.getAttribute('height'));
+            const ctx          = canvas.getContext('2d');
+
+            // Clear canvas.
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+            // Clear side panel for new mission.
+            missionObjectivesElem.innerHTML = '';
+
+            ++missionNo;
+            drawObjectivesForMission();
+
+            // Start new mission.
+            timerId = setInterval(onTimerFire, deltaTime);
+         }
       }
    }
 
    // Private variables. ////////////////////////////////////////////////////////////////////////
 
-   var raceTrack          = new RaceTrack(canvasIdAttr, sidePanelIdAttr);
-   var racer              = new Racer(raceTrack, IMG({src: 'images/racers/plane10.png'}), 2);
-   var mousePos           = null;
-   var missionTime        = null;
-   var timerId            = null;
-   var levelNo            = 0;
-   var levelDataByLevelNo =
+   var raceTrack              = new RaceTrack(canvasIdAttr, sidePanelIdAttr);
+   var racer                  = new Racer(raceTrack, IMG({src: 'images/racers/plane10.png'}), 2);
+   var mousePos               = null;
+   var missionTime            = null;
+   var timerId                = null;
+   var missionNo              = 0;
+   var missionDataByMissionNo =
    [
-      // Level 0.
       {
-         name: 'Level 1: ',
+         name: 'Test flight',
          objectives:
          [
             {
@@ -205,11 +243,41 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
             }
          ]
       },
+      {
+         name: 'Pickup gear',
+         objectives:
+         [
+            {
+               name: 'New Place 1',
+               reached: false,
+               x: 350,
+               y: 550,
+               r: 20,
+            },
+            {
+               name: 'New Place 2',
+               reached: false,
+               x: 350,
+               y: 750,
+               r: 20,
+            },
+            {
+               name: 'Home',
+               reached: false,
+               x: 880,
+               y: 980,
+               r: 20,
+            }
+         ]
+      },
 
    ];
 
    const sidePanelElem         = document.getElementById(sidePanelIdAttr);
+   const missionNumberElem     = document.getElementById('mission-number');
+   const missionNameElem       = document.getElementById('mission-name');
    const missionObjectivesElem = document.getElementById('mission-objectives');
+   const missionStatusElem     = document.getElementById('mission-status');
    const deltaTime             = 80;
 }
 
