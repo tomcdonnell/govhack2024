@@ -65,14 +65,11 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
          var vectorRacerMouse = mousePos.subtract(racer.pos);
          raceTrack.convertCoordinatesTrackToWindow(mousePos);
 
-         var oldMissionStatus = missionStatus;
-
          racer.accelerate(vectorRacerMouse.getAngle(), deltaTime);
 
          // Update position taking into account collisions with barriers.
          if (raceTrack.racerHasCrashed(racer.pos))
          {
-            missionStatus = -1;
             window.clearInterval(timerId);
          }
 
@@ -148,7 +145,6 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       var posY                = pos.getY();
       var unmetObjectiveFound = false;
 
-      // If hit objective, increment missionStatus.
       for (var i = 0; i < levelObjectives.length; ++i)
       {
          var o = levelObjectives[i];
@@ -167,7 +163,6 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
                o.reached = true;
                var p = document.getElementById('objective-' + i);
                p.innerHTML = (i + 1) + ': Completed';
-               missionStatus++;
                continue;
             }
          }
@@ -175,7 +170,6 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
 
       if (!unmetObjectiveFound)
       {
-         missionStatus = 1;
          window.clearInterval(timerId);
       }
    }
@@ -187,7 +181,6 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
    var mousePos           = null;
    var missionTime        = null;
    var timerId            = null;
-   var missionStatus      = 0;
    var levelNo            = 0;
    var levelDataByLevelNo =
    [
