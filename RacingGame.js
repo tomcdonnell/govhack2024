@@ -63,7 +63,9 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
          var vectorRacerMouse = mousePos.subtract(racer.pos);
          raceTrack.convertCoordinatesTrackToWindow(mousePos);
 
-         var missionStatus = racer.accelerate(vectorRacerMouse.getAngle(), deltaTime);
+         var oldMissionStatus = missionStatus;
+
+         missionStatus = racer.accelerate(vectorRacerMouse.getAngle(), deltaTime, missionStatus);
 
          switch (missionStatus)
          {
@@ -79,7 +81,10 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
             throw new Exception(f, 'Unknown missionStatus: ', missionStatus);
          }
 
-//         sidePanel.setCurrentLapTime(missionTime);
+         if (missionStatus != oldMissionStatus)
+         {
+            missionStatusElem.innerHTML = missionStatus;
+         }
       }
       catch (e)
       {
@@ -108,14 +113,16 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
 
    // Private variables. ////////////////////////////////////////////////////////////////////////
 
-   var raceTrack   = new RaceTrack(canvasIdAttr, sidePanelIdAttr);
-   var racer       = new Racer(raceTrack, IMG({src: 'images/racers/racer5.jpg'}), 2);
-   var mousePos    = null;
-   var missionTime = null;
-   var timerId     = null;
+   var raceTrack     = new RaceTrack(canvasIdAttr, sidePanelIdAttr);
+   var racer         = new Racer(raceTrack, IMG({src: 'images/racers/racer5.jpg'}), 2);
+   var mousePos      = null;
+   var missionTime   = null;
+   var timerId       = null;
+   var missionStatus = 0;
 
-   const sidePanel = document.getElementById(sidePanelIdAttr);
-   const deltaTime = 80;
+   const sidePanelElem     = document.getElementById(sidePanelIdAttr);
+   const missionStatusElem = document.getElementById('mission-status');
+   const deltaTime         = 80;
 }
 
 /*******************************************END*OF*FILE********************************************/

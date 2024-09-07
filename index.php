@@ -35,6 +35,8 @@
   <div id='side-panel'>
    <h1>GovHack 2024</h1>
    <p>This is my entry to GovHack 2024.</p>
+   <h2>Mission Status</h2>
+   <p id='mission-status'></p>
   </div>
   <canvas id='canvas' width='1000' height='1000'></canvas>
  </body>

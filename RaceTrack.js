@@ -76,7 +76,7 @@ function RaceTrack(canvasIdAttr, sidePanelIdAttr)
     * @param racerPosNew {VectorRec2d}
     *    The new position of the racer not taking into account collisions with barriers.
     */
-   this.updateRacerPosition = function (posOld, pos, vel)
+   this.updateRacerPosition = function (posOld, pos, vel, missionStatus)
    {
       //Optimised for speed. var f = 'RaceTrack.updateRacerPosition()';
       //Optimised for speed. UTILS.checkArgs(f, arguments, ['VectorRec2d', 'VectorRec2d', 'VectorRec2d']);
@@ -174,7 +174,6 @@ function RaceTrack(canvasIdAttr, sidePanelIdAttr)
    // These must be set after the track table has been added to the DOM using this.setOffsets().
    var trackOffsetTop  = null;
    var trackOffsetLeft = null;
-   var missionStatus   = 0;
 
    // Initialisation code. //////////////////////////////////////////////////////////////////////
 
