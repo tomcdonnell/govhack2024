@@ -1,0 +1,31 @@
+-----
+IDEAS
+-----
+
+Story
+-----
+
+Giant mutant crocodiles have overrun the NT.
+
+A scientist has escaped, and found a crop-dusting pilot in Birdsville.
+
+The player is the crop-dusting pilot.
+
+Scientist recruits pilot to save the world from the mutant crocs.
+
+Level 1
+
+Fly the plane over some areas that are infested with mutant crocs.  Spray the crocs with science dust to undo the mutation.  Fly to all areas within the time limit to move to the next level.
+
+Level 2
+
+Same deal but tighter time limit.
+
+Level 3
+
+Same deal but tighter time limit.
+
+Level 4
+
+Same deal but tighter time limit.
+
