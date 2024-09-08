@@ -35,6 +35,7 @@
   <div id='side-panel'>
    <h1>Croc Flight</h1>
    <p>A game made for GovHack 2024.</p>
+   <p>Note this game requires a mouse, so won't work on mobile devices.</p>
    <h2>
     Mission <span id='mission-number'></span>:<br/>
     <span id='mission-name'></span>
