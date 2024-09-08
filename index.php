@@ -33,7 +33,7 @@
  </head>
  <body>
   <div id='side-panel'>
-   <h1>NT Flight School</h1>
+   <h1>NT Croc Flight</h1>
    <p>A game made for GovHack 2024.</p>
    <h2>
     Mission <span id='mission-number'></span>:<br/>
@@ -50,6 +50,7 @@
    <p id='mission-intro-slide-text'>this is what the mayor says.</p>
    <button id='mission-intro-slide-button'>Next</button>
   </div>
+  <button id='start-game-button'>Start Game</button>
  </body>
 </html>
 <?php

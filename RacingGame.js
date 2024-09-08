@@ -40,7 +40,8 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
 
       window.addEventListener('mousemove', onMouseMove, false);
 
-      showMissionIntroSlide();
+      startGameButtonElem.addEventListener('click', showMissionIntroSlide);
+//      showMissionIntroSlide();
    };
 
 
@@ -111,6 +112,10 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       var slides      = missionData.introSlides;
       var slide       = slides[missionSlideNo];
 
+      // Hide start game button.
+      startGameButtonElem.style.display = 'none';
+
+      // Initialise mission slides.
       missionIntroSlideImgElem.setAttribute('src', slide.imageUrl);
       missionIntroSlideTextElem.innerHTML = slide.text;
       missionIntroSlideElem.style.display = 'block';
@@ -511,7 +516,7 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
                   'Touring these regions has reminded me that I have been working on crocodile' +
                   ' mutations - and that one of my experiments got out of control, which led to' +
                   ' my plane crash.<br/><br/>' +
-                  'We will need the help of my friend General Kaiju, who is travelling on the Ghan'
+                  'We will need the help of my friend General Kaiju, who is travelling on the Ghan.'
                ),
                nextButtonLabel: 'Start Mission'
             },
@@ -758,6 +763,7 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
    const missionIntroSlideButtonElem = document.getElementById('mission-intro-slide-button');
    const missionObjectivesElem       = document.getElementById('mission-objectives');
    const missionStatusElem           = document.getElementById('mission-status');
+   const startGameButtonElem         = document.getElementById('start-game-button');
    const deltaTime                   = 80;
 }
 

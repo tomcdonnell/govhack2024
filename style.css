@@ -63,4 +63,13 @@ body
    margin-top: 153px;
 }
 
+#start-game-button {
+   padding: 20px;
+   position: absolute;
+   font-size: 50px;
+   font-weight: bold;
+   left: 500px;
+   top: 500px;
+}
+
 /*******************************************END*OF*FILE********************************************/
