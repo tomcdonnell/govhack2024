@@ -41,7 +41,6 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       window.addEventListener('mousemove', onMouseMove, false);
 
       startGameButtonElem.addEventListener('click', showMissionIntroSlide);
-//      showMissionIntroSlide();
    };
 
 
@@ -72,6 +71,7 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
             window.clearInterval(timerId);
             var p = document.getElementById('mission-status');
             p.innerHTML = 'Failed (presumed crashed)';
+            showCrashedPlaneSlides();
          }
 
          updateMissionStatus(racer.pos);
@@ -163,6 +163,41 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
    function refreshPage(ev)
    {
       document.location.reload(true);
+   }
+
+   /*
+    * 
+    */
+   function showCrashedPlaneSlides()
+   {
+      var failedMissionData = missionDataByMissionNo[missionNo];
+
+      // Overwrite missionDataByMissionNo to show special slides for when the plane crashes.
+      missionDataByMissionNo = [
+         {
+            name: failedMissionData.name,
+            introSlides:
+            [
+               {
+                  imageUrl: 'images/other/plane_crash_at_sea.png',
+                  text: (
+                     'Your plane was lost to radar, and you are presumed dead.<br/><br/>' +
+                     'Please try again.<br/><br/>' +
+                     'The easiest way to control the plane is to follow the red dot with the' +
+                     ' mouse pointer until the dot slows, and then experiment with small mouse' +
+                     ' movements.'
+                  ),
+                  nextButtonLabel: 'Restart'
+               },
+            ],
+            startX: 860,
+            startY: 980,
+            objectives: []
+         }
+      ];
+
+      missionNo = 0;
+      showMissionIntroSlide();
    }
 
    /*
