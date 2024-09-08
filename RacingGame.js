@@ -115,6 +115,11 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       missionIntroSlideTextElem.innerHTML = slide.text;
       missionIntroSlideElem.style.display = 'block';
 
+      // Remove all event listeners that might previously have been added.
+      missionIntroSlideButtonElem.removeEventListener('click', startMission);
+      missionIntroSlideButtonElem.removeEventListener('click', showNextSlide);
+      missionIntroSlideButtonElem.removeEventListener('click', refreshPage);
+
       if (missionSlideNo < slides.length - 1)
       {
          // This is not the last intro slide, so set button to next slide.
@@ -124,7 +129,6 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       else
       {
          // This is the last intro slide.
-         missionIntroSlideButtonElem.removeEventListener('click', showNextSlide);
          missionIntroSlideButtonElem.innerHTML = slide.nextButtonLabel
 
          if (missionData.objectives.length > 0)
@@ -204,7 +208,8 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       }
 
       // Start the mission.
-      timerId = setInterval(onTimerFire, deltaTime);
+      racer.setPos(missionData.startX, missionData.startY);
+      timerId = window.setInterval(onTimerFire, deltaTime);
       missionStatusElem.innerHTML = 'Ongoing';
    }
 
@@ -213,6 +218,9 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
     */
    function updateMissionStatus(pos)
    {
+      const canvas = document.getElementById(canvasIdAttr);
+      const ctx    = canvas.getContext('2d');
+
       var missionData         = missionDataByMissionNo[missionNo];
       var objectives          = missionData.objectives;
       var posX                = pos.getX();
@@ -235,6 +243,13 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
             )
             {
                o.reached = true;
+
+               // Colour circle green to indicate objective met.
+               ctx.strokeStyle = 'rgb(255,255,255)';
+               ctx.beginPath();
+               ctx.arc(o.x, o.y, o.r, 0, 2 * Math.PI);
+               ctx.stroke();
+
                var p = document.getElementById('objective-' + i);
                p.innerHTML = (i + 1) + ': Completed';
             }
@@ -301,6 +316,17 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
                   ' My plane will accellerate towards your mouse pointer.<br/><br/>' +
                   'Keep the mouse pointer close to the plane to keep the plane under control.'
                ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/people/face_scientist.png',
+               text: (
+                  'Complete a mission by visiting all the objectives in the correct order.' +
+                  '<br/><br/>' +
+                  ' The first mission has two objectives: Darwin, then back to' +
+                  ' Birdsville.<br/><br/>' +
+                  'Remember, keep the mouse pointer close to the red dot!'
+               ),
                nextButtonLabel: 'Start Mission'
             },
          ],
@@ -333,29 +359,88 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
                text: 'Our trip to Darwin brought back so many memories.',
                nextButtonLabel: 'Next'
             },
+            {
+               imageUrl: 'images/tourism/darwin_city.png',
+               text: (
+                  'Darwin is a beautiful city, and rich in history.<br/><br/>' +
+                  'Did you know Darwin was bombed in World War 2?' +
+                  ' Also it was devastated by Cyclone Tracy in 1974.<br/><br/>' +
+                  ' Over 50% of the population of NT live in Darwin.'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/tourism/darwin_city.png',
+               text: (
+                  'Darwin is a beautiful city, and rich in history.<br/><br/>' +
+                  'Did you know Darwin was bombed in World War 2?' +
+                  ' Also it was devastated by Cyclone Tracy in 1974.<br/><br/>' +
+                  ' Over 50% of the population of NT live in Darwin.'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/tourism/darwin_crocosaurus_cove.png',
+               text: (
+                  'Darwin is also home to Crocosaurus Cove, where I did some of my research.' +
+                  '<br/><br/>' +
+                  "Crocosaurus Cove has the world's largest display of Australian reptiles," +
+                  ' including the iconic saltwater crocodile.'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/people/face_scientist.png',
+               text: (
+                  'Next I want you to take me along the route of the Ghan Railroad.<br/><br/>' +
+                  ''
+               ),
+               nextButtonLabel: 'Next'
+            },
          ],
          startX: 860,
          startY: 980,
          objectives:
          [
             {
-               name: 'New Place 1',
+               name: 'Ghan',
                reached: false,
-               x: 350,
-               y: 550,
+               x: 470,
+               y: 945,
                r: 20,
             },
             {
-               name: 'New Place 2',
+               name: 'Alice Springs',
                reached: false,
-               x: 350,
-               y: 750,
+               x: 520,
+               y: 850,
                r: 20,
             },
             {
-               name: 'Home',
+               name: 'Davenport',
                reached: false,
-               x: 880,
+               x: 540,
+               y: 650,
+               r: 20,
+            },
+            {
+               name: 'Pamayu',
+               reached: false,
+               x: 520,
+               y: 480,
+               r: 20,
+            },
+            {
+               name: 'Katherine',
+               reached: false,
+               x: 430,
+               y: 230,
+               r: 20,
+            },
+            {
+               name: 'Birdsville',
+               reached: false,
+               x: 860,
                y: 980,
                r: 20,
             }

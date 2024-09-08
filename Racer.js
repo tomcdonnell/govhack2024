@@ -39,13 +39,13 @@ function Racer(raceTrack, image, imageRadius, startX, startY)
     * (eg. (x: 0.5, y: 0.5) is middle of trackGridSquare (r: 0, c: 0) (top-leftmost square)).
     * (eg. (x: 1.5, y: 1.5) is middle of trackGridSquare (r: 1, c: 1)).
     */
-   this.setPos = function (p)
+   this.setPos = function (x, y)
    {
       // Optimised for speed. var f = 'Racer.setPos()';
       // Optimised for speed. UTILS.checkArgs(f, arguments, ['VectorRec2d']);
 
-      self.pos.setX(p.getX());
-      self.pos.setY(p.getY());
+      self.pos.setX(x);
+      self.pos.setY(y);
 
       updateStyleVars();
    };
