@@ -33,7 +33,7 @@
  </head>
  <body>
   <div id='side-panel'>
-   <h1>NT Croc Flight</h1>
+   <h1>Croc Flight</h1>
    <p>A game made for GovHack 2024.</p>
    <h2>
     Mission <span id='mission-number'></span>:<br/>
