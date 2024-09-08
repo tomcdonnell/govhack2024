@@ -118,23 +118,22 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
       if (missionSlideNo < slides.length - 1)
       {
          // This is not the last intro slide, so set button to next slide.
-         missionIntroSlideButtonElem.innerHTML = 'Next';
+         missionIntroSlideButtonElem.innerHTML = slide.nextButtonLabel;
          missionIntroSlideButtonElem.addEventListener('click', showNextSlide);
       }
       else
       {
          // This is the last intro slide.
          missionIntroSlideButtonElem.removeEventListener('click', showNextSlide);
+         missionIntroSlideButtonElem.innerHTML = slide.nextButtonLabel
 
          if (missionData.objectives.length > 0)
          {
-            missionIntroSlideButtonElem.innerHTML = 'Start Mission';
             missionIntroSlideButtonElem.addEventListener('click', startMission);
          }
          else
          {
             // This is the end-game slideshow.  Change the button to a refresh
-            missionIntroSlideButtonElem.innerHTML = 'End';
             missionIntroSlideButtonElem.addEventListener('click', refreshPage);
          }
       }
@@ -275,12 +274,34 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
          introSlides:
          [
             {
-               imageUrl: 'images/people/face_mayor.png',
-               text: 'This is what the mayor says.'
+               imageUrl: 'images/people/face_scientist.png',
+               text: (
+                  'Hello there.  My name is Professor Lyle Fuddlesby.<br/><br/>' +
+                  'My plane crashed a short distance from here.  I have repaired it, but I can' +
+                  ' no longer fly it due to my injuries.<br/><br/>' +
+                  'Will you fly my plane for me?  I will teach you how.'
+               ),
+               nextButtonLabel: 'Yes'
             },
             {
-               imageUrl: 'images/people/face_general.png',
-               text: 'This is what the general says.'
+               imageUrl: 'images/people/face_scientist.png',
+               text: (
+                  'Before my plane crashed, I was working on something very important.' +
+                  " But now I can't remember what that was.<br/><br/>" +
+                  'I do remember that my work started in Darwin.<br/><br/>' +
+                  'You must take me back to Darwin.'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/people/face_scientist.png',
+               text: (
+                  'My plane is the red dot at the bottom-right corner of the map,' +
+                  ' here in Birdsville.<br/><br/>' +
+                  ' My plane will accellerate towards your mouse pointer.<br/><br/>' +
+                  'Keep the mouse pointer close to the plane to keep the plane under control.'
+               ),
+               nextButtonLabel: 'Start Mission'
             },
          ],
          startX: 860,
@@ -288,10 +309,10 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
          objectives:
          [
             {
-               name: 'Sturt Creek',
+               name: 'Darwin',
                reached: false,
-               x: 150,
-               y: 550,
+               x: 350,
+               y: 100,
                r: 20,
             },
             {
@@ -308,8 +329,9 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
          introSlides:
          [
             {
-               imageUrl: 'images/people/face_mayor.png',
-               text: 'This is what the mayor says.'
+               imageUrl: 'images/people/face_scientist.png',
+               text: 'Our trip to Darwin brought back so many memories.',
+               nextButtonLabel: 'Next'
             },
          ],
          startX: 860,

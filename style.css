@@ -52,6 +52,7 @@ body
    float: left;
    padding-left: 20px;
    font-size: 20px;
+   width: 600px;
 }
 
 #mission-intro-slide > button {

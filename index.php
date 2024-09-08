@@ -36,7 +36,7 @@
    <h1>NT Flight School</h1>
    <p>A game made for GovHack 2024.</p>
    <h2>
-    Mission <span id='mission-number'>1</span>:<br/>
+    Mission <span id='mission-number'></span>:<br/>
     <span id='mission-name'></span>
    </h2>
    <h2>Objectives</h2>
