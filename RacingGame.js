@@ -284,72 +284,72 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
    var missionSlideNo         = 0;
    var missionDataByMissionNo =
    [
-//      {
-//         name: 'Visit Darwin',
-//         introSlides:
-//         [
-//            {
-//               imageUrl: 'images/people/face_scientist.png',
-//               text: (
-//                  'Hello there.  My name is Professor Lyle Fuddlesby.<br/><br/>' +
-//                  'My plane crashed a short distance from here.  I have repaired it, but I can' +
-//                  ' no longer fly it due to my injuries.<br/><br/>' +
-//                  'Will you fly my plane for me?  I will teach you how.'
-//               ),
-//               nextButtonLabel: 'Yes'
-//            },
-//            {
-//               imageUrl: 'images/people/face_scientist.png',
-//               text: (
-//                  'Before my plane crashed, I was working on something very important.' +
-//                  " But now I can't remember what that was.<br/><br/>" +
-//                  'I do remember that my work started in Darwin.<br/><br/>' +
-//                  'You must take me back to Darwin.'
-//               ),
-//               nextButtonLabel: 'Next'
-//            },
-//            {
-//               imageUrl: 'images/people/face_scientist.png',
-//               text: (
-//                  'My plane is the red dot at the bottom-right corner of the map,' +
-//                  ' here in Birdsville.<br/><br/>' +
-//                  ' My plane will accelerate towards your mouse pointer.<br/><br/>' +
-//                  'Keep the mouse pointer close to the plane to keep the plane under control.'
-//               ),
-//               nextButtonLabel: 'Next'
-//            },
-//            {
-//               imageUrl: 'images/people/face_scientist.png',
-//               text: (
-//                  'Complete a mission by visiting all the objectives in the correct order.' +
-//                  '<br/><br/>' +
-//                  ' The first mission has two objectives: Darwin, then back to' +
-//                  ' Birdsville.<br/><br/>' +
-//                  'Remember, keep the mouse pointer close to the red dot!'
-//               ),
-//               nextButtonLabel: 'Start Mission'
-//            },
-//         ],
-//         startX: 860,
-//         startY: 980,
-//         objectives:
-//         [
-//            {
-//               name: 'Darwin',
-//               reached: false,
-//               x: 350,
-//               y: 100,
-//               r: 20,
-//            },
-//            {
-//               name: 'Birdsville',
-//               reached: false,
-//               x: 860,
-//               y: 980,
-//               r: 20,
-//            }
-//         ]
-//      },
+      {
+         name: 'Visit Darwin',
+         introSlides:
+         [
+            {
+               imageUrl: 'images/people/face_scientist.png',
+               text: (
+                  'Hello there.  My name is Professor Lyle Fuddlesby.<br/><br/>' +
+                  'My plane crashed a short distance from here.  I have repaired it, but I can' +
+                  ' no longer fly it due to my injuries.<br/><br/>' +
+                  'Will you fly my plane for me?  I will teach you how.'
+               ),
+               nextButtonLabel: 'Yes'
+            },
+            {
+               imageUrl: 'images/people/face_scientist.png',
+               text: (
+                  'Before my plane crashed, I was working on something very important.' +
+                  " But now I can't remember what that was.<br/><br/>" +
+                  'I do remember that my work started in Darwin.<br/><br/>' +
+                  'You must take me back to Darwin.'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/people/face_scientist.png',
+               text: (
+                  'My plane is the red dot at the bottom-right corner of the map,' +
+                  ' here in Birdsville.<br/><br/>' +
+                  ' My plane will accelerate towards your mouse pointer.<br/><br/>' +
+                  'Keep the mouse pointer close to the plane to keep the plane under control.'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/people/face_scientist.png',
+               text: (
+                  'Complete a mission by visiting all the objectives in the correct order.' +
+                  '<br/><br/>' +
+                  ' The first mission has two objectives: Darwin, then back to' +
+                  ' Birdsville.<br/><br/>' +
+                  'Remember, keep the mouse pointer close to the red dot!'
+               ),
+               nextButtonLabel: 'Start Mission'
+            },
+         ],
+         startX: 860,
+         startY: 980,
+         objectives:
+         [
+            {
+               name: 'Darwin',
+               reached: false,
+               x: 350,
+               y: 100,
+               r: 20,
+            },
+            {
+               name: 'Birdsville',
+               reached: false,
+               x: 860,
+               y: 980,
+               r: 20,
+            }
+         ]
+      },
       {
          name: 'The North',
          introSlides:
@@ -509,8 +509,8 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
                imageUrl: 'images/people/face_scientist.png',
                text: (
                   'Touring these regions has reminded me that I have been working on crocodile' +
-                  ' mutations - and one of my experiments got out of control, which led to my' +
-                  ' plane crash.<br/><br/>' +
+                  ' mutations - and that one of my experiments got out of control, which led to' +
+                  ' my plane crash.<br/><br/>' +
                   'We will need the help of my friend General Kaiju, who is travelling on the Ghan'
                ),
                nextButtonLabel: 'Start Mission'
@@ -565,12 +565,172 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
          ]
       },
       {
+         name: 'Return to the north',
+         introSlides:
+         [
+            {
+               imageUrl: 'images/people/face_scientist.png',
+               text: (
+                  'We are lucky to have found General Kaiju in Katherine.  We will need his help' +
+                  ' to deal with my escaped giant mutant crocodiles.<br/><br/>' +
+                  'Yes, giant mutant crocodiles. I was an evil scientist, but following my plane' +
+                  ' crash I only want to do good.'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/people/face_general.png',
+               text: (
+                  "A fine mess you've gotten us into Professor!<br/><br/>" +
+                  'But I have a plan.  The barrels we picked up in Alice Springs contain an' +
+                  ' antidote to your mutant poison.<br/><br/>' +
+                  'We just need to fly back over the northern regions, and unload these barrels' +
+                  ' on all the croc habitats.'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/people/face_general.png',
+               text: (
+                  'That will reverse the effect of the mutation.<br/><br/>' +
+                  'Our pilot has proved himself worthy of this mission, but time is short.' +
+                  '<br/><br/>' +
+                  "You've got one shot at this pilot. The fate of the Territory is in your hands."
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/people/face_scientist.png',
+               text: (
+                  'But, wait a minute.<br/><br/>' +
+                  'Perhaps while we get the plan prepared I could tell you about my adventures' +
+                  ' on the Ghan?'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/people/face_general.png',
+               text: (
+                  'Oh all right Professor.  We do love hearing about your travels.'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/tourism/ghan_one.png',
+               text: (
+                  'The Ghan is a tourism-oriented passenger train service that operates between' +
+                  ' the northern and southern coasts of Australia<br/><br/>' +
+                  'Each train has an average of 28 stainless steel carriages. That makes for a' +
+                  ' very long train.'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/tourism/ghan_two.png',
+               text: (
+                  "The Ghan passes through Alice Springs, which is the NT's third-largest" +
+                  ' settlement after Darwin and Palmerston.<br/><br/>' +
+                  'The Arrernte people are the traditional owners of the area and surrounding' +
+                  ' MacDonnell Ranges.'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/tourism/ghan_three.png',
+               text: (
+                  'Construction of the Alice Springs-Darwin line was believed to be the' +
+                  ' second-largest civil engineering project in Australia, and the largest since' +
+                  ' the creation of the Snowy Mountains Scheme.<br/><br/>' +
+                  'I look forward to travelling on the Ghan again.'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/people/face_general.png',
+               text: (
+                  'Thanks for the tour Professor.  Now we know more about the Territory we must' +
+                  ' save.<br/><br/>' +
+                  "Now back to business. You've got one shot at this pilot.  The fate of the" +
+                  ' Territory is in your hands.'
+               ),
+               nextButtonLabel: 'Start Mission'
+            },
+         ],
+         startX: 860,
+         startY: 980,
+         objectives: [
+            {
+               name: 'Kakadu National Park',
+               reached: false,
+               x: 430,
+               y: 150,
+               r: 20,
+            },
+            {
+               name: 'Tiwi Islands',
+               reached: false,
+               x: 330,
+               y: 50,
+               r: 20,
+            },
+            {
+               name: 'Garig Gunak Barlu National Park',
+               reached: false,
+               x: 430,
+               y: 30,
+               r: 20,
+            },
+            {
+               name: 'Arnhem Land',
+               reached: false,
+               x: 550,
+               y: 120,
+               r: 20,
+            },
+            {
+               name: 'Pellew Islands',
+               reached: false,
+               x: 700,
+               y: 305,
+               r: 20,
+            },
+            {
+               name: 'Birdsville',
+               reached: false,
+               x: 860,
+               y: 980,
+               r: 20,
+            }
+         ]
+      },
+      {
          name: 'Rejoice!',
          introSlides:
          [
             {
                imageUrl: 'images/people/face_mayor.png',
-               text: 'This is the end.  All missions have been completed.'
+               text: (
+                  "Thanks to your expert piloting skills, and the General's quick thinking, the " +
+                  ' Territory has been saved from giant mutant crocodiles.<br/><br/>' +
+                  "Professor Fuddlesby, I'm moving you out of scientific duties, and offering" +
+                  " you a job as Assistant Tour Guide on the Ghan."
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/people/face_scientist.png',
+               text: (
+                  'Sorry again for letting my experiment get out of control.  I am honoured' +
+                  ' to accept that position.'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/people/face_general.png',
+               text: (
+                  "All's well that end's well.  Now let's ride the Ghan back to Darwin."
+               ),
+               nextButtonLabel: 'End'
             },
          ],
          startX: 860,
