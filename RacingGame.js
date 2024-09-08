@@ -284,79 +284,82 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
    var missionSlideNo         = 0;
    var missionDataByMissionNo =
    [
+//      {
+//         name: 'Visit Darwin',
+//         introSlides:
+//         [
+//            {
+//               imageUrl: 'images/people/face_scientist.png',
+//               text: (
+//                  'Hello there.  My name is Professor Lyle Fuddlesby.<br/><br/>' +
+//                  'My plane crashed a short distance from here.  I have repaired it, but I can' +
+//                  ' no longer fly it due to my injuries.<br/><br/>' +
+//                  'Will you fly my plane for me?  I will teach you how.'
+//               ),
+//               nextButtonLabel: 'Yes'
+//            },
+//            {
+//               imageUrl: 'images/people/face_scientist.png',
+//               text: (
+//                  'Before my plane crashed, I was working on something very important.' +
+//                  " But now I can't remember what that was.<br/><br/>" +
+//                  'I do remember that my work started in Darwin.<br/><br/>' +
+//                  'You must take me back to Darwin.'
+//               ),
+//               nextButtonLabel: 'Next'
+//            },
+//            {
+//               imageUrl: 'images/people/face_scientist.png',
+//               text: (
+//                  'My plane is the red dot at the bottom-right corner of the map,' +
+//                  ' here in Birdsville.<br/><br/>' +
+//                  ' My plane will accelerate towards your mouse pointer.<br/><br/>' +
+//                  'Keep the mouse pointer close to the plane to keep the plane under control.'
+//               ),
+//               nextButtonLabel: 'Next'
+//            },
+//            {
+//               imageUrl: 'images/people/face_scientist.png',
+//               text: (
+//                  'Complete a mission by visiting all the objectives in the correct order.' +
+//                  '<br/><br/>' +
+//                  ' The first mission has two objectives: Darwin, then back to' +
+//                  ' Birdsville.<br/><br/>' +
+//                  'Remember, keep the mouse pointer close to the red dot!'
+//               ),
+//               nextButtonLabel: 'Start Mission'
+//            },
+//         ],
+//         startX: 860,
+//         startY: 980,
+//         objectives:
+//         [
+//            {
+//               name: 'Darwin',
+//               reached: false,
+//               x: 350,
+//               y: 100,
+//               r: 20,
+//            },
+//            {
+//               name: 'Birdsville',
+//               reached: false,
+//               x: 860,
+//               y: 980,
+//               r: 20,
+//            }
+//         ]
+//      },
       {
-         name: 'Test flight',
+         name: 'The North',
          introSlides:
          [
             {
                imageUrl: 'images/people/face_scientist.png',
                text: (
-                  'Hello there.  My name is Professor Lyle Fuddlesby.<br/><br/>' +
-                  'My plane crashed a short distance from here.  I have repaired it, but I can' +
-                  ' no longer fly it due to my injuries.<br/><br/>' +
-                  'Will you fly my plane for me?  I will teach you how.'
+                  'Our trip to Darwin brought back so many memories.<br/><br/>' +
+                  'Let me share a few facts about Darwin with you.'
                ),
-               nextButtonLabel: 'Yes'
-            },
-            {
-               imageUrl: 'images/people/face_scientist.png',
-               text: (
-                  'Before my plane crashed, I was working on something very important.' +
-                  " But now I can't remember what that was.<br/><br/>" +
-                  'I do remember that my work started in Darwin.<br/><br/>' +
-                  'You must take me back to Darwin.'
-               ),
-               nextButtonLabel: 'Next'
-            },
-            {
-               imageUrl: 'images/people/face_scientist.png',
-               text: (
-                  'My plane is the red dot at the bottom-right corner of the map,' +
-                  ' here in Birdsville.<br/><br/>' +
-                  ' My plane will accellerate towards your mouse pointer.<br/><br/>' +
-                  'Keep the mouse pointer close to the plane to keep the plane under control.'
-               ),
-               nextButtonLabel: 'Next'
-            },
-            {
-               imageUrl: 'images/people/face_scientist.png',
-               text: (
-                  'Complete a mission by visiting all the objectives in the correct order.' +
-                  '<br/><br/>' +
-                  ' The first mission has two objectives: Darwin, then back to' +
-                  ' Birdsville.<br/><br/>' +
-                  'Remember, keep the mouse pointer close to the red dot!'
-               ),
-               nextButtonLabel: 'Start Mission'
-            },
-         ],
-         startX: 860,
-         startY: 980,
-         objectives:
-         [
-            {
-               name: 'Darwin',
-               reached: false,
-               x: 350,
-               y: 100,
-               r: 20,
-            },
-            {
-               name: 'Birdsville',
-               reached: false,
-               x: 860,
-               y: 980,
-               r: 20,
-            }
-         ]
-      },
-      {
-         name: 'Pickup gear',
-         introSlides:
-         [
-            {
-               imageUrl: 'images/people/face_scientist.png',
-               text: 'Our trip to Darwin brought back so many memories.',
                nextButtonLabel: 'Next'
             },
             {
@@ -392,10 +395,125 @@ function RacingGame(canvasIdAttr, sidePanelIdAttr)
             {
                imageUrl: 'images/people/face_scientist.png',
                text: (
-                  'Next I want you to take me along the route of the Ghan Railroad.<br/><br/>' +
-                  ''
+                  'My research was about crocodiles!<br/><br/>' +
+                  'It is starting to come back to me, but I need more details.<br/><br/>' +
+                  "To learn more about crocodiles, let's tour the north!"
                ),
                nextButtonLabel: 'Next'
+            },
+         ],
+         startX: 860,
+         startY: 980,
+         objectives:
+         [
+            {
+               name: 'Kakadu National Park',
+               reached: false,
+               x: 430,
+               y: 150,
+               r: 20,
+            },
+            {
+               name: 'Tiwi Islands',
+               reached: false,
+               x: 330,
+               y: 50,
+               r: 20,
+            },
+            {
+               name: 'Garig Gunak Barlu National Park',
+               reached: false,
+               x: 430,
+               y: 30,
+               r: 20,
+            },
+            {
+               name: 'Arnhem Land',
+               reached: false,
+               x: 550,
+               y: 120,
+               r: 20,
+            },
+            {
+               name: 'Pellew Islands',
+               reached: false,
+               x: 700,
+               y: 305,
+               r: 20,
+            },
+            {
+               name: 'Birdsville',
+               reached: false,
+               x: 860,
+               y: 980,
+               r: 20,
+            }
+         ]
+      },
+      {
+         name: 'The Ghan',
+         introSlides:
+         [
+            {
+               imageUrl: 'images/people/face_scientist.png',
+               text: (
+                  'I have spent a lot of time among the crocodiles in the northern part of NT.' +
+                  '<br/><br/>' +
+                  "I'll tell you a bit about the places we visited.<br/><br/>" +
+                  "Then I'll tell you about some troubling things I have remembered."
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/tourism/kakadu_national_park.png',
+               text: (
+                  'Kakadu is the second-largest National Park in Australia - roughly the' +
+                  ' size of Wales.<br/><br/>' +
+                  'Most of the park is owned by the Aboriginal traditional owners, who have' +
+                  ' occupied the land for around 60,000 years, and today, manage the park' +
+                  ' jointly with Parks Australia.'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/tourism/tiwi_islands.png',
+               text: (
+                  "The Tiwi Islands comprise Melville Island, Bathurst Island, and nine smaller" +
+                  ' uninhabited islands.<br/><br/>' +
+                  'They were created by sea level rise at the end of the last ice age, which' +
+                  ' finished about 11,700 years ago.'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/tourism/garig_gunak_barlu_national_park.png',
+               text: (
+                  'All six species of Australian marine turtle live in the area of ocean which is' +
+                  ' included in the park.<br/><br/>' +
+                  ' The surrounding ocean is also inhabited by sharks and cetaceans, and' +
+                  ' saltwater crocodiles live near the coast.'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/tourism/arnhem_land.png',
+               text: (
+                  'The Yolnu culture in East Arnhem Land is one of the oldest living cultures' +
+                  ' on Earth, at around 60,000 years old.<br/><br/>' +
+                  'DNA studies have confirmed that Aboriginal Australians are one of the oldest' +
+                  ' living populations in the world, certainly the oldest outside of Africa.'
+               ),
+               nextButtonLabel: 'Next'
+            },
+            {
+               imageUrl: 'images/people/face_scientist.png',
+               text: (
+                  'Touring these regions has reminded me that I have been working on crocodile' +
+                  ' mutations - and one of my experiments got out of control, which led to my' +
+                  ' plane crash.<br/><br/>' +
+                  'We will need the help of my friend General Kaiju, who is travelling on the Ghan'
+               ),
+               nextButtonLabel: 'Start Mission'
             },
          ],
          startX: 860,
